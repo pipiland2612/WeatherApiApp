@@ -9,6 +9,7 @@ const today = new Date();
 const dayOfWeek = today.getDay();
 const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const dayName = daysOfWeek[dayOfWeek];
+
 // calculation the date of 4 days before
 const currentDate = new Date();
 currentDate.setDate(currentDate.getDate() - 4);
