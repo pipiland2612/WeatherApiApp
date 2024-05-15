@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <title>Weather App Ui Design | AsmrProg</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="left-info">
+            <div class="pic-gradient"></div>
+            <div class="today-info">
+                <h2>
+                    <%= dayName %>
+                </h2>
+                <span>
+                    <%= localTime %>
+                </span>
+                <div>
+                    <i class='bx bx-current-location'></i>
+                    <span>
+                        <%= location %>
+                    </span>
+                </div>
+            </div>
+            <div class="today-weather">
+                <!-- <i class='bx bx-sun'></i> -->
+                <img src=<%=conditionIcon %> alt="">
+                <h1 class="weather-temp">
+                    <%= temperature %>
+                </h1>
+                <h3>
+                    <%= conditionText %>
+                </h3>
+            </div>
+        </div>
+
+        <div class="right-info">
+            <div class="day-info">
+                <div>
+                    <span class="title">PRECIPITATION</span>
+                    <span class="value">
+                        <%= precip_mm %> mm
+                    </span>
+                </div>
+                <div>
+                    <span class="title">HUMIDITY</span>
+                    <span class="value">
+                        <%= humidity %> %
+                    </span>
+                </div>
+                <div>
+                    <span class="title">WIND SPEED</span>
+                    <span class="value">
+                        <%= wind_kph %> kph
+                    </span>
+                </div>
+            </div>
+
+            <ul class="days-list">
+                <li>
+                    <i class='bx bx-cloud'></i>
+                    <span>Sat</span>
+                    <span class="day-temp">
+                        36 C
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bx-sun'></i>
+                    <span>Sun</span>
+                    <span class="day-temp">
+                        36 C
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bx-cloud-rain'></i>
+                    <span>Mon</span>
+                    <span class="day-temp">
+                        36 C
+                    </span>
+                </li>
+                <li>
+                    <i class='bx bx-cloud-drizzle'></i>
+                    <span>Tue</span>
+                    <span class="day-temp">
+                        36 C
+                    </span>
+                </li>
+            </ul>
+
+            <div class="btn-container">
+                <!-- <button action="/post" method="POST" name="location" class="loc-button">Search Location</button> -->
+                <form id="myForm" method="post" class="form">
+                    <label for="idInput" class="form__label"></label>
+                    <input type="text" id="idInput" name="id" class="form_input" placeholder="City">
+                    <button id="post" type="submit" value="POST" formaction="/post" class="loc-button"><box-icon
+                            name='search' color='#ffffff'></box-icon></button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
