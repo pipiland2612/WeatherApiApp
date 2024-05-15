@@ -30,7 +30,7 @@ body {
     display: flex;
     border-radius: 25px;
     justify-content: center;
-    background: url("1.jpg");
+    background: url("/public/images/1.jpg");
     background-position: center;
     background-size: cover;
     transform: scale(1.03) perspective(200px);
