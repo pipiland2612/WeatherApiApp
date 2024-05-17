@@ -20,23 +20,23 @@
                     <%= dayName %>
                 </h2>
                 <span>
-                    <%= localTime %>
+                    <%= result.location.localtime %>
                 </span>
                 <div>
                     <i class='bx bx-current-location'></i>
                     <span>
-                        <%= location %>
+                        <%= result.location.name %>
                     </span>
                 </div>
             </div>
             <div class="today-weather">
                 <!-- <i class='bx bx-sun'></i> -->
-                <img src=<%=conditionIcon %> alt="">
+                <img src=<%=result.current.condition.icon %> alt="">
                 <h1 class="weather-temp">
-                    <%= temperature %>
+                    <%= result.current.temp_c %>
                 </h1>
                 <h3>
-                    <%= conditionText %>
+                    <%= result.current.condition.text %>
                 </h3>
             </div>
         </div>
@@ -46,19 +46,19 @@
                 <div>
                     <span class="title">PRECIPITATION</span>
                     <span class="value">
-                        <%= precip_mm %> mm
+                        <%= result.current.precip_mm %> mm
                     </span>
                 </div>
                 <div>
                     <span class="title">HUMIDITY</span>
                     <span class="value">
-                        <%= humidity %> %
+                        <%= result.current.humidity %> %
                     </span>
                 </div>
                 <div>
                     <span class="title">WIND SPEED</span>
                     <span class="value">
-                        <%= wind_kph %> kph
+                        <%= result.current.wind_kph %> kph
                     </span>
                 </div>
             </div>
@@ -68,28 +68,28 @@
                     <i class='bx bx-cloud'></i>
                     <span>Sat</span>
                     <span class="day-temp">
-                        36 C
+                        <%= historyData.forecast.forecastday[0].day.avgtemp_c %> C
                     </span>
                 </li>
                 <li>
                     <i class='bx bx-sun'></i>
                     <span>Sun</span>
                     <span class="day-temp">
-                        36 C
+                        <%= historyData.forecast.forecastday[1].day.avgtemp_c %> C
                     </span>
                 </li>
                 <li>
                     <i class='bx bx-cloud-rain'></i>
                     <span>Mon</span>
                     <span class="day-temp">
-                        36 C
+                        <%= historyData.forecast.forecastday[2].day.avgtemp_c %> C
                     </span>
                 </li>
                 <li>
                     <i class='bx bx-cloud-drizzle'></i>
                     <span>Tue</span>
                     <span class="day-temp">
-                        36 C
+                        <%= historyData.forecast.forecastday[3].day.avgtemp_c %> C
                     </span>
                 </li>
             </ul>
