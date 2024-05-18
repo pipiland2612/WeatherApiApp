@@ -30,10 +30,9 @@
                 </div>
             </div>
             <div class="today-weather">
-                <!-- <i class='bx bx-sun'></i> -->
-                <img src=<%=result.current.condition.icon %> alt="">
+                <img src="<%= result.current.condition.icon %>" alt="">
                 <h1 class="weather-temp">
-                    <%= result.current.temp_c %>
+                    <%= result.current.temp_c %> °C
                 </h1>
                 <h3>
                     <%= result.current.condition.text %>
@@ -64,43 +63,26 @@
             </div>
 
             <ul class="days-list">
-                <li>
-                    <i class='bx bx-cloud'></i>
-                    <span>Sat</span>
-                    <span class="day-temp">
-                        <%= historyData.forecast.forecastday[0].day.avgtemp_c %> C
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bx-sun'></i>
-                    <span>Sun</span>
-                    <span class="day-temp">
-                        <%= historyData.forecast.forecastday[1].day.avgtemp_c %> C
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bx-cloud-rain'></i>
-                    <span>Mon</span>
-                    <span class="day-temp">
-                        <%= historyData.forecast.forecastday[2].day.avgtemp_c %> C
-                    </span>
-                </li>
-                <li>
-                    <i class='bx bx-cloud-drizzle'></i>
-                    <span>Tue</span>
-                    <span class="day-temp">
-                        <%= historyData.forecast.forecastday[3].day.avgtemp_c %> C
-                    </span>
-                </li>
+                <% historyDays.forEach(day=> { %>
+                    <li>
+                        <i class='bx <%= day.iconClass %>'></i>
+                        <span>
+                            <%= day.dayName %>
+                        </span>
+                        <span class="day-temp">
+                            <%= day.avgTemp %> °C
+                        </span>
+                    </li>
+                    <% }); %>
             </ul>
 
             <div class="btn-container">
-                <!-- <button action="/post" method="POST" name="location" class="loc-button">Search Location</button> -->
                 <form id="myForm" method="post" class="form">
                     <label for="idInput" class="form__label"></label>
                     <input type="text" id="idInput" name="id" class="form_input" placeholder="City" autocomplete="off">
-                    <button id="post" type="submit" value="POST" formaction="/post" class="loc-button"><box-icon
-                            name='search' color='#ffffff'></box-icon></button>
+                    <button id="post" type="submit" value="POST" formaction="/post" class="loc-button">
+                        <box-icon name='search' color='#ffffff'></box-icon>
+                    </button>
                 </form>
             </div>
 
