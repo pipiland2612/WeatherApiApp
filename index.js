@@ -15,20 +15,24 @@ function calculateDateFormatted(numberOfDaysBefore) {
     return `${year}-${month}-${day}`;
 }
 
-// function generateHistoryDayname(numberOfDaysBack) {
-//     let historyDayName = {}
-//     for (let i = numberOfDaysBack; i > 0; i--) {
-//         historyDayName[`historyDayName${i}`] = getDayOfWeek(calculateDateFormatted(i));
-//     }
-//     return historyDayName
-// }
-
 // Function to get the day of the week
 function getDayOfWeek(dateString) {
-    const date = parseISO(dateString);
+    const date = parseISO(dateString); // dateString : yyyy-mm-dd
     return format(date, 'EEEE').substring(0, 3);
 }
 
+//Pushing history data in an array
+async function historyDayArray(data) {
+    const historyDays = [];
+    for (let i = 0; i < 4; i++) {
+        historyDays.push({
+            dayName: getDayOfWeek(calculateDateFormatted(4 - i)),
+            avgTemp: data.forecast.forecastday[i].day.avgtemp_c,
+            iconClass: ['bx-cloud', 'bx-sun', 'bx-cloud-rain', 'bx-cloud-drizzle'][i]
+        });
+    }
+    return historyDays
+}
 // Variables
 const apiKey = "d5d2b0f2e0f84b7aa9a102200241505";
 const port = 3000;
@@ -53,14 +57,7 @@ app.get("/", async (req, res) => {
         ]);
         const result = response1.data;
         const historyData = response2.data;
-        const historyDays = [];
-        for (let i = 0; i < 4; i++) {
-            historyDays.push({
-                dayName: getDayOfWeek(calculateDateFormatted(4 - i)),
-                avgTemp: historyData.forecast.forecastday[i].day.avgtemp_c,
-                iconClass: ['bx-cloud', 'bx-sun', 'bx-cloud-rain', 'bx-cloud-drizzle'][i]
-            });
-        }
+        const historyDays = await historyDayArray(historyData);
         res.render("index.ejs", {
             result: result,
             dayName: getDayOfWeek(calculateDateFormatted(0)),
@@ -82,15 +79,8 @@ app.post("/post", async (req, res) => {
         ]);
         const result = response1.data;
         const historyData = response2.data;
-        // const historyDayNames = generateHistoryDayname(4)
-        const historyDays = [];
-        for (let i = 0; i < 4; i++) {
-            historyDays.push({
-                dayName: getDayOfWeek(calculateDateFormatted(4 - i)),
-                avgTemp: historyData.forecast.forecastday[i].day.avgtemp_c,
-                iconClass: ['bx-cloud', 'bx-sun', 'bx-cloud-rain', 'bx-cloud-drizzle'][i]
-            });
-        }
+
+        const historyDays = await historyDayArray(historyData);
         res.render("index.ejs", {
             result: result,
             dayName: getDayOfWeek(calculateDateFormatted(0)),
@@ -99,8 +89,8 @@ app.post("/post", async (req, res) => {
             historyDays: historyDays
 
         });
-    } catch (error) {
-        console.error(error);
+    } catch (err) {
+        console.error(err.stack);
     }
 });
 
