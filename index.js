@@ -12,7 +12,7 @@ function calculateDateFormatted(numberOfDaysBefore) {
     const year = currentDate.getFullYear().toString();
     const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const day = currentDate.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`; // yyyy-mm-dd
 }
 
 // Function to get the day of the week
@@ -33,6 +33,7 @@ async function historyDayArray(data) {
     }
     return historyDays
 }
+
 // Variables
 const apiKey = "d5d2b0f2e0f84b7aa9a102200241505";
 const port = 3000;
@@ -48,7 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Root route
+// Get route
 app.get("/", async (req, res) => {
     try {
         const [response1, response2] = await Promise.all([
@@ -71,8 +72,9 @@ app.get("/", async (req, res) => {
 
 // Post route
 app.post("/post", async (req, res) => {
+    const location = req.body.id;
+
     try {
-        const location = req.body.id;
         const [response1, response2] = await Promise.all([
             axios.get(`${weatherUrl}/current.json?key=${apiKey}&q=${location}`),
             axios.get(`${weatherUrl}/history.json?key=${apiKey}&q=${location}&dt=${calculateDateFormatted(4)}&end_dt=${calculateDateFormatted(1)}`)
@@ -91,6 +93,7 @@ app.post("/post", async (req, res) => {
         });
     } catch (err) {
         console.error(err.stack);
+        res.status(400).json({ message: `Location :${location} is not valid` })
     }
 });
 
